@@ -10,6 +10,7 @@
 #' @param format The citation format to use (in-text citations)
 #' @param translator The translator to use (bibliography files)
 #' @param .action Use \link{bbt_return} to return the value without printing.
+#' @param ... Pass anything to the cite-as-you-write endpoint (see link above)
 #'
 #' @return A character vector of length 1, the result of \code{.action}.
 #' @export
@@ -18,6 +19,7 @@
 #' if(interactive()) bbt_cite()
 #' if(interactive()) bbt_bib()
 #' if(interactive()) bbt_cayw(format = "mmd")
+#' if(interactive()) bbt_bib_zotero()
 #'
 bbt_cite <- function(format = c("pandoc", "latex", "cite"), .action = bbt_print) {
   format <- match.arg(format)
@@ -101,12 +103,19 @@ bbt_copy <- function(text) {
   invisible(text)
 }
 
+# TODO implement this:
+# https://github.com/retorquere/zotero-better-bibtex/blob/master/content/json-rpc.ts
+# the /better-bibtex/json-rpc endpoint
+
 bbt_url <- function(.endpoint, ...) {
   .endpoint <- paste0("http://127.0.0.1:23119/better-bibtex/", .endpoint)
   args <- c(...)
   if(is.null(names(args))) {
     url <- paste0(
-      .endpoint, "?", paste0(vapply(args, URLencode, reserved=TRUE, FUN.VALUE = character(1)), collapse = "&")
+      .endpoint, "?", paste0(
+        vapply(args, utils::URLencode, reserved=TRUE, FUN.VALUE = character(1)),
+        collapse = "&"
+      )
     )
   } else {
     stopifnot(all(names(args) != ""))
@@ -119,7 +128,8 @@ bbt_url <- function(.endpoint, ...) {
 }
 
 bbt_call <- function(.endpoint, ...) {
-  if(!(bbt_call_http(.endpoint = "cayw", probe = TRUE) == "ready")) {
+  ping <- bbt_call_http(.endpoint = "cayw", probe = TRUE)
+  if(inherits(ping, "try-error") && !(ping == "ready")) {
     message("Can't connect to Better BibTex for Zotero!")
     bbt_call_test(.endpoint, ...)
   } else {
@@ -130,10 +140,13 @@ bbt_call <- function(.endpoint, ...) {
 bbt_call_test <- function(.endpoint, ...) {
   # TODO: invoke some sort of dictionary mapping test URLs to responses based on
   # real responses from my Zotero
-  bbt_url(.endpoint = .endpoint, ...)
+  # bbt_url(.endpoint = .endpoint, ...)
+  ""
 }
 
 bbt_call_http <- function(.endpoint, ..., .payload = NULL) {
-  url <- bbt_url(.endpoint = .endpoint, ...)
-  httr::content(httr::GET(url), as = "text", encoding = "UTF-8")
+  try({
+    url <- bbt_url(.endpoint = .endpoint, ...)
+    httr::content(httr::GET(url), as = "text", encoding = "UTF-8")
+  })
 }

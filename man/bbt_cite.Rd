@@ -23,6 +23,8 @@ bbt_bib_zotero(translator = c("biblatex", "bibtex", "csljson"),
 \item{.action}{Use \link{bbt_return} to return the value without printing.}
 
 \item{translator}{The translator to use (bibliography files)}
+
+\item{...}{Pass anything to the cite-as-you-write endpoint (see link above)}
 }
 \value{
 A character vector of length 1, the result of \code{.action}.
@@ -38,5 +40,6 @@ selection in Zotero to generate a bibliography.
 if(interactive()) bbt_cite()
 if(interactive()) bbt_bib()
 if(interactive()) bbt_cayw(format = "mmd")
+if(interactive()) bbt_bib_zotero()
 
 }

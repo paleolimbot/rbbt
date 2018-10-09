@@ -5,6 +5,6 @@ Binding: bbt_cite_addin
 Interactive: false
 
 Name: Insert Zotero Bibliography From Zotero Selection
-Description: Inserts BibLaTex bibliography text from the Better Bibtex Zotero Connector
+Description: Inserts BibTex bibliography text from the Better Bibtex Zotero Connector
 Binding: bbt_bib_zotero_addin
 Interactive: false
