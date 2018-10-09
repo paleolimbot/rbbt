@@ -10,3 +10,5 @@ LazyData: true
 RoxygenNote: 6.1.0
 Imports: 
     httr
+URL: https://github.com/paleolimbot/rbbt
+BugReports: https://github.com/paleolimbot/rbbt/issues
