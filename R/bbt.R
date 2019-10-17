@@ -28,7 +28,7 @@ bbt_cite <- function(format = c("pandoc", "latex", "cite"), .action = bbt_print)
 
 #' @rdname bbt_cite
 #' @export
-bbt_bib <- function(translator = c("biblatex", "bibtex", "csljson"), .action = bbt_print) {
+bbt_bib <- function(translator = c("biblatex", "bibtex", "csljson", "cslyaml"), .action = bbt_print) {
   translator <- match.arg(translator)
   bbt_cayw(format = "translate", translator = translator, .action = .action)
 }
@@ -41,7 +41,7 @@ bbt_cayw <- function(..., .action = bbt_print) {
 
 #' @rdname bbt_cite
 #' @export
-bbt_bib_zotero <- function(translator = c("biblatex", "bibtex", "csljson"), .action = bbt_print) {
+bbt_bib_zotero <- function(translator = c("biblatex", "bibtex", "csljson", "cslyaml"), .action = bbt_print) {
   translator <- match.arg(translator)
   .action(bbt_call(.endpoint = "select", translator))
 }

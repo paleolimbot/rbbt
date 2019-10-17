@@ -9,13 +9,13 @@
 \usage{
 bbt_cite(format = c("pandoc", "latex", "cite"), .action = bbt_print)
 
-bbt_bib(translator = c("biblatex", "bibtex", "csljson"),
+bbt_bib(translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
   .action = bbt_print)
 
 bbt_cayw(..., .action = bbt_print)
 
-bbt_bib_zotero(translator = c("biblatex", "bibtex", "csljson"),
-  .action = bbt_print)
+bbt_bib_zotero(translator = c("biblatex", "bibtex", "csljson",
+  "cslyaml"), .action = bbt_print)
 }
 \arguments{
 \item{format}{The citation format to use (in-text citations)}
