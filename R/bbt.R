@@ -56,8 +56,12 @@ bbt_cite_addin <- function() {
   }
 }
 
-bbt_bib_zotero_addin <- function() {
+bbt_biblatex_zotero_addin <- function() {
   bbt_bib_zotero(translator = "biblatex", .action = bbt_insert)
+}
+
+bbt_bibtex_zotero_addin <- function() {
+  bbt_bib_zotero(translator = "bibtex", .action = bbt_insert)
 }
 
 #' Do something with a value from the API
