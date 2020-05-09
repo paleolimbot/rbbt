@@ -36,6 +36,7 @@ bbt_bib_cayw <- function(translator = c("biblatex", "bibtex", "csljson", "cslyam
 #' Zotero pane.
 #'
 #' @inheritParams bbt_ref_cayw
+#' @param keys A character vector of citation keys.
 #'
 #' @return The result of `.action`.
 #' @export
@@ -57,7 +58,7 @@ bbt_bib <- function(keys, translator = c("biblatex", "bibtex", "csljson", "cslya
 
   assert_bbt()
   translator <- match.arg(translator)
-  result <- bbt_call_json_rpc("item.export", as.list(as.character(keys)), translator)
+  result <- bbt_call_json_rpc("item.export", as.list(unique(as.character(keys))), translator)
 
   if (!is.null(result$error)) {
     stop(result$error$message, call. = FALSE)

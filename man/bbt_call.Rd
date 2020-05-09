@@ -18,6 +18,10 @@ bbt_call_json_rpc(.method, ...)
 \item{...}{Arguments as key-value pairs. For JSON-RPC,
 these are encoded as JSON, and for the GET API, these
 are converted to query-string parameters.}
+
+\item{.action}{Use \code{\link[=bbt_return]{bbt_return()}} to return the value without printing.}
+
+\item{.method}{A supported JSON-RPC method}
 }
 \description{
 See the

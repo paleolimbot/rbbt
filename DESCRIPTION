@@ -12,7 +12,10 @@ RoxygenNote: 7.1.0
 Imports: 
     httr,
     rstudioapi,
-    clipr
+    clipr,
+    knitr,
+    readr,
+    stringr
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/paleolimbot/rbbt
 BugReports: https://github.com/paleolimbot/rbbt/issues

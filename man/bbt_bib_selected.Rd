@@ -20,6 +20,8 @@ bbt_bib(
 \item{translator}{The translator to use (bibliography files)}
 
 \item{.action}{Use \code{\link[=bbt_return]{bbt_return()}} to return the value without printing.}
+
+\item{keys}{A character vector of citation keys.}
 }
 \value{
 The result of \code{.action}.
