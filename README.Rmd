@@ -52,7 +52,7 @@ cat("
 ---
 title: \"Zotero + Better BibTeX + RMarkdown using rbbt\"
 output: html_document
-bibliography: \"`r rbbt::bbt_write_bib('biblio.bib', overwrite = TRUE)`\"
+bibliography: \"`r rbbt::bbt_write_bib('biblio.json', overwrite = TRUE)`\"
 ---
 ")
 ```

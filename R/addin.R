@@ -16,3 +16,10 @@ bbt_biblatex_zotero_addin <- function() {
 bbt_bibtex_zotero_addin <- function() {
   bbt_bib_selected(translator = "bibtex", .action = bbt_insert)
 }
+
+bbt_csljson_zotero_addin <- function() {
+  bbt_bib_selected(translator = "csljson", .action = bbt_insert)
+}
+bbt_cslyaml_zotero_addin <- function() {
+  bbt_bib_selected(translator = "cslyaml", .action = bbt_insert)
+}

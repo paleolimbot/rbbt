@@ -1,28 +1,32 @@
-
 #' Insert references from Zotero
 #'
 #' Using BetterBibTex's
-#' [cite-as-you-write tool](https://retorque.re/zotero-better-bibtex/cayw/).
-#' Unfortunately, this doesn't work well on some platforms.
-#' Citation text
-#' is printed to the console by default (use the addin to insert directly
-#' into the editor!).
+#' [cite-as-you-write tool](https://retorque.re/zotero-better-bibtex/cayw/)
+#' to search your Zotero libraries and insert citations or a bibliography.
+#' Unfortunately, this doesn't work well on some platforms. Citation text is
+#' printed to the console by default. Use the RStudio addin to insert directly
+#' into the editor!
 #'
-#' @param format The citation format to use (in-text citations)
-#' @param translator Type of bibliography file to create. Options `csljson`
+#' @param format The citation format to use for in-text citations.
+#' @param translator Type of bibliography file to create. Options are `csljson`
 #' (CSL-JSON), `biblatex` (BibLaTeX), `bibtex` (BibTeX), and `cslyaml`
-#' (CSL YAML). CSL-JSON is recommended for most users (see Notes). If `"guess"`,
-#' the translator will be guessed from the file extension of `path`.
+#' (CSL YAML). CSL-JSON is recommended for most users (see Note).
 #' @param .action Use [bbt_return()] to return the value without printing.
 #'
-#' @note RMarkdown's citation formatting uses
+#' @section Note: Most users should use CSL-JSON format (`.json`) for their bibliographies.
+#'
+#' RMarkdown's citation formatting uses
 #' [CSL styles](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citation_styles).
 #' These styles require CSL-JSON data. RMarkdown converts other data formats
 #' (e.g., BibLaTeX) to CSL-JSON. This is not lossless, and references other than
 #' journal articles may be inaccurate. This is the case even if outputting to
-#' PDF or TeX format. For these reasons, most users should use CSL-JSON format
-#' for their bibliographies. Only use BibLaTeX or BibTeX if you are using
-#' [pandoc arguments to specify an alternative citation engine for TeX output](https://pandoc.org/MANUAL.html#citation-rendering).
+#' PDF or TeX format.
+#'
+#' Only use BibLaTeX or BibTeX if you are using
+#' [pandoc arguments to specify an alternative citation engine for raw TeX output](https://pandoc.org/MANUAL.html#citation-rendering).
+#'
+#' The default translator can be changed. For example:
+#'   `options(rbbt.default.translator = "csljson")`
 #'
 #' @return A character vector of length 1, the result of `.action`.
 #' @export
@@ -35,41 +39,44 @@ bbt_ref_cayw <- function(format = c("pandoc", "latex", "cite"), .action = bbt_pr
 
 #' @rdname bbt_ref_cayw
 #' @export
-bbt_bib_cayw <- function(translator = c("csljson", "biblatex", "bibtex", "cslyaml"),
+bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                          .action = bbt_print) {
   assert_bbt()
   translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
   bbt_cayw(format = "translate", translator = translator, .action = .action)
 }
 
-#' Insert selected bibliography items from Zotero
+#' Generate a bilbiography file from Zotero
 #'
-#' Returns the bibliography version of the selected items in the
-#' Zotero pane.
+#' Generates a bibliography file from your Zotero libraries. `bbt_bib()` generates
+#' the file from a vector of citation keys. `bb_bib_selected()` generates the
+#' files from the currently selected items in the Zotero pane.
 #'
 #' @inheritParams bbt_ref_cayw
 #' @param keys A character vector of citation keys.
 #'
+#' @inheritSection bbt_ref_cayw Note
+#'
 #' @return The result of `.action`.
 #' @export
 #'
-bbt_bib_selected <- function(translator = c("csljson", "biblatex", "bibtex", "cslyaml"),
+bbt_bib_selected <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                              .action = bbt_print) {
   assert_bbt()
-  translator <- match.arg(translator)
+  translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
   .action(bbt_call(.endpoint = "select", translator))
 }
 
 #' @rdname bbt_bib_selected
 #' @export
-bbt_bib <- function(keys, translator = c("csljson", "biblatex", "bibtex", "cslyaml"),
+bbt_bib <- function(keys, translator = getOption("rbbt.default.translator", "biblatex"),
                     .action = bbt_print) {
   if (length(keys) == 0)  {
     return(.action(""))
   }
 
   assert_bbt()
-  translator <- match.arg(translator)
+  translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
   result <- bbt_call_json_rpc("item.export", as.list(unique(as.character(keys))), translator)
 
   if (!is.null(result$error)) {
