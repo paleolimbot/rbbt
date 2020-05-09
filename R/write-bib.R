@@ -6,21 +6,23 @@
 #' @param ignore A character vector of keys to disregard (useful if
 #'   [bbt_detect_citations()] gives spurious output).
 #' @param overwrite Use `TRUE` to overwrite an existing file at `path`
-#' @param translator Type of bibliography file to create. Options are CSL-JSON (default), BibLaTex, BibTeX, and CSL YAML. If you are using RMarkdown/CSL styles to format citations, CSL-JSON is recommended because it will produce the most accurate citations. If you are using natbib or biber to format citations, BibLaTex is recommended.
 #'
 #' @return `path` (so that this can be used in the 'biblio' RMarkdown YAML field)
 #' @export
 #'
-bbt_write_bib <- function(path,
+bbt_write_bib <- function(path = "bibliography.json",
                           keys = bbt_detect_citations(),
                           ignore = character(),
-                          translator = c("csljson", "biblatex", "bibtex", "cslyaml"),
+                          translator = c("guess", "csljson", "biblatex", "bibtex", "cslyaml"),
                           overwrite = FALSE) {
   if (file.exists(path) && !overwrite) {
     stop("Use `overwrite = TRUE` to overwrite file at '", path, "'", call. = FALSE)
   }
   force(keys)
   translator <- match.arg(translator)
+  if (tranlator == "guess") {
+    translator <- bbt_guess_translator(path)
+  }
 
   assert_bbt()
   readr::write_file(
@@ -29,4 +31,29 @@ bbt_write_bib <- function(path,
   )
 
   path
+}
+
+#' Guess the BetterBibTeX translator format from the file extension
+#'
+#' This function guesses the expected bibliography format
+#'
+#' @param path The output path for the bibliography file. Must end with `.json`, `.bib`, or `.yaml`.
+#' @param .bib Should `.bib` files be returned in `biblatex` (default) or `bibtex` format?
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' bbt_guess_translator("bibliography.json")
+bbt_guess_translator <- function(path, .bib = c("biblatex", "bibtex")) {
+  if (!grepl("\\.json$", path, ignore.case = TRUE)) {
+    return("csljson")
+  } else if (!grepl("\\.bib$", path, ignore.case = TRUE)) {
+    .bib <- match.arg(.bib)
+    return(.bib)
+  } else if (!grepl("\\.bib$", path, ignore.case = TRUE)) {
+    return("cslyaml")
+  } else {
+    stop("Expected translator could not be determined. `path` must end in '.json', '.bib', or '.yaml'.")
+  }
 }
