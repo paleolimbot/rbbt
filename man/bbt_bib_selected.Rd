@@ -19,7 +19,8 @@ bbt_bib(
 \arguments{
 \item{translator}{Type of bibliography file to create. Options are \code{csljson}
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
-(CSL YAML). CSL-JSON is recommended for most users (see Note).}
+(CSL YAML). CSL-JSON is recommended if users are not specifically using
+a LaTeX citation processor.}
 
 \item{.action}{Use \code{\link[=bbt_return]{bbt_return()}} to return the value without printing.}
 

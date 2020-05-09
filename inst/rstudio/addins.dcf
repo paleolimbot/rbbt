@@ -1,25 +1,12 @@
 
 Name: Insert Zotero Citation
-Description: Inserts an in-text citation from the Better BibTex Zotero Connector
+Description: Inserts an in-text citation into the editor from the
+  Better BibTex Zotero Connector
 Binding: bbt_cite_addin
 Interactive: false
 
-Name: Insert Zotero Bibliography From Zotero Selection (CSL-JSON)
-Description: Inserts CSL-JSON bibliography text from the Better BibTex Zotero Connector
-Binding: bbt_csljson_zotero_addin
-Interactive: false
-
-Name: Insert Zotero Bibliography From Zotero Selection (BibLaTeX)
-Description: Inserts BibLaTex bibliography text from the Better BibTex Zotero Connector
-Binding: bbt_biblatex_zotero_addin
-Interactive: false
-
-Name: Insert Zotero Bibliography From Zotero Selection (BibTeX)
-Description: Inserts BibTex bibliography text from the Better BibTex Zotero Connector
-Binding: bbt_bibtex_zotero_addin
-Interactive: false
-
-Name: Insert Zotero Bibliography From Zotero Selection (CSL YAML)
-Description: Inserts CSL YAML bibliography text from the Better BibTex Zotero Connector
-Binding: bbt_csljson_zotero_addin
+Name: Insert Zotero Bibliography From Zotero Selection
+Description: Inserts a CSL-JSON, CSL-YAML, BibLaTeX, or BibTeX
+  bibliography text into the editor from the Better BibTex Zotero Connector
+Binding: bbt_bib_addin
 Interactive: false

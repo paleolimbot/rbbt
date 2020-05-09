@@ -19,7 +19,8 @@ bbt_bib_cayw(
 
 \item{translator}{Type of bibliography file to create. Options are \code{csljson}
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
-(CSL YAML). CSL-JSON is recommended for most users (see Note).}
+(CSL YAML). CSL-JSON is recommended if users are not specifically using
+a LaTeX citation processor.}
 }
 \value{
 A character vector of length 1, the result of \code{.action}.

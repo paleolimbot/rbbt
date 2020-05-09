@@ -9,8 +9,9 @@
 #'
 #' @param format The citation format to use for in-text citations.
 #' @param translator Type of bibliography file to create. Options are `csljson`
-#' (CSL-JSON), `biblatex` (BibLaTeX), `bibtex` (BibTeX), and `cslyaml`
-#' (CSL YAML). CSL-JSON is recommended for most users (see Note).
+#'   (CSL-JSON), `biblatex` (BibLaTeX), `bibtex` (BibTeX), and `cslyaml`
+#'   (CSL YAML). CSL-JSON is recommended if users are not specifically using
+#'   a LaTeX citation processor.
 #' @param .action Use [bbt_return()] to return the value without printing.
 #'
 #' @section Note: Most users should use CSL-JSON format (`.json`) for their bibliographies.

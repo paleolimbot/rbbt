@@ -5,15 +5,15 @@
 \title{Write a Zotero bibliography file from citation keys}
 \usage{
 bbt_write_bib(
-  path = NULL,
+  path,
   keys = bbt_detect_citations(),
   ignore = character(),
-  translator = c("guess", "csljson", "biblatex", "bibtex", "cslyaml"),
+  translator = bbt_guess_translator(path),
   overwrite = FALSE
 )
 }
 \arguments{
-\item{path}{Filepath where the bibliography should be written}
+\item{path}{The output path for the bibliography file. Must end with \code{.json}, \code{.bib}, or \code{.yaml}.}
 
 \item{keys}{A character vector of citation keys.}
 
@@ -22,13 +22,14 @@ bbt_write_bib(
 
 \item{translator}{Type of bibliography file to create. Options are \code{csljson}
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
-(CSL YAML). CSL-JSON is recommended for most users (see Notes). If
-\code{"guess"}, the translator will be guessed from the file extension of \code{path}.}
+(CSL YAML). CSL-JSON is recommended if users are not specifically using
+a LaTeX citation processor.}
 
 \item{overwrite}{Use \code{TRUE} to overwrite an existing file at \code{path}}
 }
 \value{
-The value of \code{path} (so that this function can be used in the 'bibliography' RMarkdown YAML field)
+The value of \code{path} (so that this function
+can be used in the 'bibliography' RMarkdown YAML field)
 }
 \description{
 Write a bibliography file to disk from a set of citation keys.
@@ -60,4 +61,5 @@ The default translator can be changed. For example:
 bbt_write_bib("bibliography.json") # For CSL-JSON output (recommended)
 bbt_write_bib("bibliography.bib")  # For BibLaTeX output
 }
+
 }
