@@ -1,67 +1,69 @@
 
-#' Interactively insert references from Zotero
+#' Insert references from Zotero
 #'
-#' Using BetterBibTex's cite-as-you-write tool (
-#' \url{https://retorque.re/zotero-better-bibtex/cayw/}). Citation text
+#' Using BetterBibTex's
+#' [cite-as-you-write tool](https://retorque.re/zotero-better-bibtex/cayw/).
+#' Unfortunately, this doesn't work well on some platforms.
+#' Citation text
 #' is printed to the console by default (use the addin to insert directly
-#' into the editor!). Use \code{bbt_bib_zotero} to use the current
-#' selection in Zotero to generate a bibliography.
+#' into the editor!).
 #'
 #' @param format The citation format to use (in-text citations)
 #' @param translator The translator to use (bibliography files)
-#' @param .action Use \link{bbt_return} to return the value without printing.
-#' @param ... Pass anything to the cite-as-you-write endpoint (see link above)
+#' @param .action Use [bbt_return()] to return the value without printing.
 #'
-#' @return A character vector of length 1, the result of \code{.action}.
+#' @return A character vector of length 1, the result of `.action`.
 #' @export
 #'
-#' @examples
-#' if(interactive()) bbt_cite()
-#' if(interactive()) bbt_bib()
-#' if(interactive()) bbt_cayw(format = "mmd")
-#' if(interactive()) bbt_bib_zotero()
-#'
-bbt_cite <- function(format = c("pandoc", "latex", "cite"), .action = bbt_print) {
+bbt_ref_cayw <- function(format = c("pandoc", "latex", "cite"), .action = bbt_print) {
+  assert_bbt()
   format <- match.arg(format)
   bbt_cayw(format = format, .action = .action)
 }
 
-#' @rdname bbt_cite
+#' @rdname bbt_ref_cayw
 #' @export
-bbt_bib <- function(translator = c("biblatex", "bibtex", "csljson", "cslyaml"), .action = bbt_print) {
+bbt_bib_cayw <- function(translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+                         .action = bbt_print) {
+  assert_bbt()
   translator <- match.arg(translator)
   bbt_cayw(format = "translate", translator = translator, .action = .action)
 }
 
-#' @rdname bbt_cite
+#' Insert selected bibliography items from Zotero
+#'
+#' Returns the bibliography version of the selected items in the
+#' Zotero pane.
+#'
+#' @inheritParams bbt_ref_cayw
+#'
+#' @return The result of `.action`.
 #' @export
-bbt_cayw <- function(..., .action = bbt_print) {
-  .action(bbt_call("cayw", ...))
-}
-
-#' @rdname bbt_cite
-#' @export
-bbt_bib_zotero <- function(translator = c("biblatex", "bibtex", "csljson", "cslyaml"), .action = bbt_print) {
+#'
+bbt_bib_selected <- function(translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+                             .action = bbt_print) {
+  assert_bbt()
   translator <- match.arg(translator)
   .action(bbt_call(.endpoint = "select", translator))
 }
 
-bbt_cite_addin <- function() {
-  # get the likely citation type from the current document context
-  context <- rstudioapi::getActiveDocumentContext()
-  if(is.character(context$path) && (grepl("tex$", context$path[1]))) {
-    bbt_cite("cite", .action = bbt_insert)
-  } else {
-    bbt_cite("pandoc", .action = bbt_insert)
+#' @rdname bbt_bib_selected
+#' @export
+bbt_bib <- function(keys, translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+                    .action = bbt_print) {
+  if (length(keys) == 0)  {
+    return()
   }
-}
 
-bbt_biblatex_zotero_addin <- function() {
-  bbt_bib_zotero(translator = "biblatex", .action = bbt_insert)
-}
+  assert_bbt()
+  translator <- match.arg(translator)
+  result <- bbt_call_json_rpc("item.export", as.list(as.character(keys)), translator)
 
-bbt_bibtex_zotero_addin <- function() {
-  bbt_bib_zotero(translator = "bibtex", .action = bbt_insert)
+  if (!is.null(result$error)) {
+    stop(result$error$message, call. = FALSE)
+  } else {
+    .action(result$result[[3]])
+  }
 }
 
 #' Do something with a value from the API
@@ -105,52 +107,4 @@ bbt_copy <- function(text) {
   message("Text copied to clipboard")
   clipr::write_clip(text)
   invisible(text)
-}
-
-# TODO implement this:
-# https://github.com/retorquere/zotero-better-bibtex/blob/master/content/json-rpc.ts
-# the /better-bibtex/json-rpc endpoint
-
-bbt_url <- function(.endpoint, ...) {
-  .endpoint <- paste0("http://127.0.0.1:23119/better-bibtex/", .endpoint)
-  args <- c(...)
-  if(is.null(names(args))) {
-    url <- paste0(
-      .endpoint, "?", paste0(
-        vapply(args, utils::URLencode, reserved=TRUE, FUN.VALUE = character(1)),
-        collapse = "&"
-      )
-    )
-  } else {
-    stopifnot(all(names(args) != ""))
-    url <- httr::parse_url(.endpoint)
-    url$query <- as.list(args)
-    url <- httr::build_url(url)
-  }
-
-  url
-}
-
-bbt_call <- function(.endpoint, ...) {
-  ping <- bbt_call_http(.endpoint = "cayw", probe = TRUE)
-  if(inherits(ping, "try-error") && !(ping == "ready")) {
-    message("Can't connect to Better BibTex for Zotero!")
-    bbt_call_test(.endpoint, ...)
-  } else {
-    bbt_call_http(.endpoint, ...)
-  }
-}
-
-bbt_call_test <- function(.endpoint, ...) {
-  # TODO: invoke some sort of dictionary mapping test URLs to responses based on
-  # real responses from my Zotero
-  # bbt_url(.endpoint = .endpoint, ...)
-  ""
-}
-
-bbt_call_http <- function(.endpoint, ..., .payload = NULL) {
-  try({
-    url <- bbt_url(.endpoint = .endpoint, ...)
-    httr::content(httr::GET(url), as = "text", encoding = "UTF-8")
-  })
 }

@@ -3,15 +3,18 @@ Title: R Interface to the Better BiBTex Zotero Connector
 Version: 0.0.0.9000
 Authors@R: person("Dewey", "Dunnington", email = "dewey@fishandwhistle.net", role = c("aut", "cre"))
 Description: Connects R to the Better Bibtex for Zotero connector 
-  <https://retorque.re/zotero-better-bibtex/cayw/>.
+  <https://retorque.re/zotero-better-bibtex/>.
 Depends: R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports: 
     httr,
     rstudioapi,
     clipr
+Roxygen: list(markdown = TRUE)
 URL: https://github.com/paleolimbot/rbbt
 BugReports: https://github.com/paleolimbot/rbbt/issues
+Suggests: 
+    testthat
