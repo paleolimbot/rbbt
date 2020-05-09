@@ -8,25 +8,44 @@
 bbt_ref_cayw(format = c("pandoc", "latex", "cite"), .action = bbt_print)
 
 bbt_bib_cayw(
-  translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+  translator = getOption("rbbt.default.translator", "biblatex"),
   .action = bbt_print
 )
 }
 \arguments{
-\item{format}{The citation format to use (in-text citations)}
+\item{format}{The citation format to use for in-text citations.}
 
 \item{.action}{Use \code{\link[=bbt_return]{bbt_return()}} to return the value without printing.}
 
-\item{translator}{The translator to use (bibliography files)}
+\item{translator}{Type of bibliography file to create. Options are \code{csljson}
+(CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
+(CSL YAML). CSL-JSON is recommended for most users (see Note).}
 }
 \value{
 A character vector of length 1, the result of \code{.action}.
 }
 \description{
 Using BetterBibTex's
-\href{https://retorque.re/zotero-better-bibtex/cayw/}{cite-as-you-write tool}.
-Unfortunately, this doesn't work well on some platforms.
-Citation text
-is printed to the console by default (use the addin to insert directly
-into the editor!).
+\href{https://retorque.re/zotero-better-bibtex/cayw/}{cite-as-you-write tool}
+to search your Zotero libraries and insert citations or a bibliography.
+Unfortunately, this doesn't work well on some platforms. Citation text is
+printed to the console by default. Use the RStudio addin to insert directly
+into the editor!
 }
+\section{Note}{
+ Most users should use CSL-JSON format (\code{.json}) for their bibliographies.
+
+RMarkdown's citation formatting uses
+\href{https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citation_styles}{CSL styles}.
+These styles require CSL-JSON data. RMarkdown converts other data formats
+(e.g., BibLaTeX) to CSL-JSON. This is not lossless, and references other than
+journal articles may be inaccurate. This is the case even if outputting to
+PDF or TeX format.
+
+Only use BibLaTeX or BibTeX if you are using
+\href{https://pandoc.org/MANUAL.html#citation-rendering}{pandoc arguments to specify an alternative citation engine for raw TeX output}.
+
+The default translator can be changed. For example:
+\code{options(rbbt.default.translator = "csljson")}
+}
+

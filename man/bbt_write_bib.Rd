@@ -2,31 +2,62 @@
 % Please edit documentation in R/write-bib.R
 \name{bbt_write_bib}
 \alias{bbt_write_bib}
-\title{Write a bibliography file from citation keys}
+\title{Write a Zotero bibliography file from citation keys}
 \usage{
 bbt_write_bib(
-  path,
+  path = NULL,
   keys = bbt_detect_citations(),
   ignore = character(),
-  translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+  translator = c("guess", "csljson", "biblatex", "bibtex", "cslyaml"),
   overwrite = FALSE
 )
 }
 \arguments{
-\item{path}{A path where the bibliography should be written}
+\item{path}{Filepath where the bibliography should be written}
 
 \item{keys}{A character vector of citation keys.}
 
 \item{ignore}{A character vector of keys to disregard (useful if
 \code{\link[=bbt_detect_citations]{bbt_detect_citations()}} gives spurious output).}
 
-\item{translator}{The translator to use (bibliography files)}
+\item{translator}{Type of bibliography file to create. Options are \code{csljson}
+(CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
+(CSL YAML). CSL-JSON is recommended for most users (see Notes). If
+\code{"guess"}, the translator will be guessed from the file extension of \code{path}.}
 
 \item{overwrite}{Use \code{TRUE} to overwrite an existing file at \code{path}}
 }
 \value{
-\code{path} (so that this can be used in the 'biblio' RMarkdown YAML field)
+The value of \code{path} (so that this function can be used in the 'bibliography' RMarkdown YAML field)
 }
 \description{
-Write a bibliography file from citation keys
+Write a bibliography file to disk from a set of citation keys.
+To automatically
+generate a bibliography file from the items cited in your document when you
+Knit, place a line like this one in your RMarkdown YAML header:
+
+\verb{bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"}
+}
+\section{Note}{
+ Most users should use CSL-JSON format (\code{.json}) for their bibliographies.
+
+RMarkdown's citation formatting uses
+\href{https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citation_styles}{CSL styles}.
+These styles require CSL-JSON data. RMarkdown converts other data formats
+(e.g., BibLaTeX) to CSL-JSON. This is not lossless, and references other than
+journal articles may be inaccurate. This is the case even if outputting to
+PDF or TeX format.
+
+Only use BibLaTeX or BibTeX if you are using
+\href{https://pandoc.org/MANUAL.html#citation-rendering}{pandoc arguments to specify an alternative citation engine for raw TeX output}.
+
+The default translator can be changed. For example:
+\code{options(rbbt.default.translator = "csljson")}
+}
+
+\examples{
+\dontrun{
+bbt_write_bib("bibliography.json") # For CSL-JSON output (recommended)
+bbt_write_bib("bibliography.bib")  # For BibLaTeX output
+}
 }

@@ -1,7 +1,11 @@
 Package: rbbt
 Title: R Interface to the Better BiBTex Zotero Connector
 Version: 0.0.0.9000
-Authors@R: person("Dewey", "Dunnington", email = "dewey@fishandwhistle.net", role = c("aut", "cre"))
+Authors@R: c(person("Dewey", "Dunnington", 
+                    email = "dewey@fishandwhistle.net", role = c("aut", "cre")),
+             person("Brenton M.", "Wiernik", 
+                    email = "brenton@wiernik.org", role = c("aut"))
+             )
 Description: Connects R to the Better Bibtex for Zotero connector 
   <https://retorque.re/zotero-better-bibtex/>.
 Depends: R (>= 3.4.0)

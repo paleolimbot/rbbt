@@ -3,21 +3,23 @@
 \name{bbt_bib_selected}
 \alias{bbt_bib_selected}
 \alias{bbt_bib}
-\title{Insert selected bibliography items from Zotero}
+\title{Generate a bilbiography file from Zotero}
 \usage{
 bbt_bib_selected(
-  translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+  translator = getOption("rbbt.default.translator", "biblatex"),
   .action = bbt_print
 )
 
 bbt_bib(
   keys,
-  translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
+  translator = getOption("rbbt.default.translator", "biblatex"),
   .action = bbt_print
 )
 }
 \arguments{
-\item{translator}{The translator to use (bibliography files)}
+\item{translator}{Type of bibliography file to create. Options are \code{csljson}
+(CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
+(CSL YAML). CSL-JSON is recommended for most users (see Note).}
 
 \item{.action}{Use \code{\link[=bbt_return]{bbt_return()}} to return the value without printing.}
 
@@ -27,6 +29,24 @@ bbt_bib(
 The result of \code{.action}.
 }
 \description{
-Returns the bibliography version of the selected items in the
-Zotero pane.
+Generates a bibliography file from your Zotero libraries. \code{bbt_bib()} generates
+the file from a vector of citation keys. \code{bb_bib_selected()} generates the
+files from the currently selected items in the Zotero pane.
 }
+\section{Note}{
+ Most users should use CSL-JSON format (\code{.json}) for their bibliographies.
+
+RMarkdown's citation formatting uses
+\href{https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#citation_styles}{CSL styles}.
+These styles require CSL-JSON data. RMarkdown converts other data formats
+(e.g., BibLaTeX) to CSL-JSON. This is not lossless, and references other than
+journal articles may be inaccurate. This is the case even if outputting to
+PDF or TeX format.
+
+Only use BibLaTeX or BibTeX if you are using
+\href{https://pandoc.org/MANUAL.html#citation-rendering}{pandoc arguments to specify an alternative citation engine for raw TeX output}.
+
+The default translator can be changed. For example:
+\code{options(rbbt.default.translator = "csljson")}
+}
+
