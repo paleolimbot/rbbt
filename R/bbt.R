@@ -53,7 +53,7 @@ bbt_bib_selected <- function(translator = c("biblatex", "bibtex", "csljson", "cs
 bbt_bib <- function(keys, translator = c("biblatex", "bibtex", "csljson", "cslyaml"),
                     .action = bbt_print) {
   if (length(keys) == 0)  {
-    return()
+    return(.action(""))
   }
 
   assert_bbt()
