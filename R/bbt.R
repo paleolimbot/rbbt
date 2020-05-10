@@ -1,6 +1,7 @@
-#' Insert references from Zotero
+
+#' Fetch citations from Zotero
 #'
-#' Using BetterBibTex's
+#' Use Better BibTex's
 #' [cite-as-you-write tool](https://retorque.re/zotero-better-bibtex/cayw/)
 #' to search your Zotero libraries and insert citations or a bibliography.
 #' Unfortunately, this doesn't work well on some platforms. Citation text is
@@ -32,13 +33,13 @@
 #' @return A character vector of length 1, the result of `.action`.
 #' @export
 #'
-bbt_ref_cayw <- function(format = c("pandoc", "latex", "cite"), .action = bbt_print) {
+bbt_cite_cayw <- function(format = c("pandoc", "latex", "cite"), .action = bbt_print) {
   assert_bbt()
   format <- match.arg(format)
   bbt_cayw(format = format, .action = .action)
 }
 
-#' @rdname bbt_ref_cayw
+#' @rdname bbt_cite_cayw
 #' @export
 bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                          .action = bbt_print) {
@@ -47,16 +48,16 @@ bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "bibl
   bbt_cayw(format = "translate", translator = translator, .action = .action)
 }
 
-#' Generate a bilbiography file from Zotero
+#' Fetch bibliographical information from Zotero
 #'
-#' Generates a bibliography file from your Zotero libraries. `bbt_bib()` generates
-#' the file from a vector of citation keys. `bb_bib_selected()` generates the
-#' files from the currently selected items in the Zotero pane.
+#' Fetch bibliographical information from your Zotero library. `bbt_bib()` fetches
+#' information for a vector of citation keys; `bb_bib_selected()` fetches information
+#' for the currently selected items in the Zotero pane.
 #'
-#' @inheritParams bbt_ref_cayw
+#' @inheritParams bbt_cite_cayw
 #' @param keys A character vector of citation keys.
 #'
-#' @inheritSection bbt_ref_cayw Note
+#' @inheritSection bbt_cite_cayw Note
 #'
 #' @return The result of `.action`.
 #' @export

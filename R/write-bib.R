@@ -1,4 +1,5 @@
-#' Write a Zotero bibliography file from citation keys
+
+#' Write a bibliography file from Zotero citation keys
 #'
 #' @description
 #' Write a bibliography file to disk from a set of citation keys.
@@ -14,7 +15,7 @@
 #'   [bbt_detect_citations()] gives spurious output).
 #' @param overwrite Use `TRUE` to overwrite an existing file at `path`
 #'
-#' @inheritSection bbt_ref_cayw Note
+#' @inheritSection bbt_cite_cayw Note
 #'
 #' @return The value of `path` (so that this function
 #'   can be used in the 'bibliography' RMarkdown YAML field)

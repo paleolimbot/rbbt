@@ -2,7 +2,7 @@
 test_that("bib writer works", {
   skip_if_not(has_bbt())
 
-  file <- tempfile()
+  file <- tempfile(fileext = ".bib")
   expect_identical(
     bbt_write_bib(file, "dunnington_etal18"),
     file

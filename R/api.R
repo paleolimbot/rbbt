@@ -27,7 +27,7 @@ assert_bbt <- function() {
 #' the [JSON-RPC source code](https://github.com/retorquere/zotero-better-bibtex/blob/master/content/json-rpc.ts),
 #' and the [source code for the various endpoints](https://github.com/retorquere/zotero-better-bibtex/blob/master/content/pull-export.ts).
 #'
-#' @inheritParams bbt_ref_cayw
+#' @inheritParams bbt_cite_cayw
 #' @param .endpoint A supported endpoint.
 #' @param .method A supported JSON-RPC method
 #' @param ... Arguments as key-value pairs. For JSON-RPC,

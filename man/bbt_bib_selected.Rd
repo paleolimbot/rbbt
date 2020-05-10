@@ -3,7 +3,7 @@
 \name{bbt_bib_selected}
 \alias{bbt_bib_selected}
 \alias{bbt_bib}
-\title{Generate a bilbiography file from Zotero}
+\title{Fetch bibliographical information from Zotero}
 \usage{
 bbt_bib_selected(
   translator = getOption("rbbt.default.translator", "biblatex"),
@@ -30,9 +30,9 @@ a LaTeX citation processor.}
 The result of \code{.action}.
 }
 \description{
-Generates a bibliography file from your Zotero libraries. \code{bbt_bib()} generates
-the file from a vector of citation keys. \code{bb_bib_selected()} generates the
-files from the currently selected items in the Zotero pane.
+Fetch bibliographical information from your Zotero library. \code{bbt_bib()} fetches
+information for a vector of citation keys; \code{bb_bib_selected()} fetches information
+for the currently selected items in the Zotero pane.
 }
 \section{Note}{
  Most users should use CSL-JSON format (\code{.json}) for their bibliographies.

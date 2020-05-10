@@ -2,7 +2,7 @@
 % Please edit documentation in R/write-bib.R
 \name{bbt_write_bib}
 \alias{bbt_write_bib}
-\title{Write a Zotero bibliography file from citation keys}
+\title{Write a bibliography file from Zotero citation keys}
 \usage{
 bbt_write_bib(
   path,

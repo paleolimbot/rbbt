@@ -2,7 +2,7 @@
 bbt_cite_addin <- function() {
   # get the likely citation type from the current document context
   context <- rstudioapi::getActiveDocumentContext()
-  bbt_ref_cayw(
+  bbt_cite_cayw(
     format = bbt_guess_format(bbt_rstudio_editor_filepath()),
     .action = bbt_insert
   )
