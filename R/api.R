@@ -50,19 +50,47 @@ bbt_cayw <- function(..., .action = bbt_print) {
 #' @rdname bbt_call
 #' @export
 bbt_call_json_rpc <- function(.method, ...) {
-  httr::content(
-    httr::POST(
-      bbt_url("json-rpc"),
-      body = list(
-        jsonrpc = "2.0",
-        method = .method,
-        params = list(...)
+  base_params <-
+    list(...)
+
+
+  result <-
+    httr::content(
+      httr::POST(
+        rbbt:::bbt_url("json-rpc"),
+        body = list(
+          jsonrpc = "2.0",
+          method = .method,
+          params = c(base_params, 1)), # The default 'My Library' in Zotero has a libraryID = 1
+        encode = "json"
       ),
-      encode = "json"
-    ),
-    as = "parsed",
-    encoding = "UTF-8"
-  )
+      as = "parsed",
+      encoding = "UTF-8"
+    )
+
+  if (!is.null(result$error)) {
+
+    if(result$error$code != -32602){
+      stop(result$error$message, call. = FALSE)
+    }
+
+    result <-
+      httr::content(
+        httr::POST(
+          rbbt:::bbt_url("json-rpc"),
+          body = list(
+            jsonrpc = "2.0",
+            method = .method,
+            params = c(base_params, "//")), # Within globally unique keys an empty libraryID needs to be passed
+          encode = "json"
+        ),
+        as = "parsed",
+        encoding = "UTF-8"
+      )
+  }
+
+  result
+
 }
 
 bbt_url <- function(.endpoint, ...) {
