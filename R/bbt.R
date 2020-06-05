@@ -56,6 +56,10 @@ bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "bibl
 #'
 #' @inheritParams bbt_cite_cayw
 #' @param keys A character vector of citation keys.
+#' @param library_id You may have to pass a specific library ID
+#'   if your options are not set to use globally unique keys.
+#'   Set the rbbt.default.library_id to ensure this value is
+#'   used by the addin.
 #'
 #' @inheritSection bbt_cite_cayw Note
 #'
@@ -72,6 +76,7 @@ bbt_bib_selected <- function(translator = getOption("rbbt.default.translator", "
 #' @rdname bbt_bib_selected
 #' @export
 bbt_bib <- function(keys, translator = getOption("rbbt.default.translator", "biblatex"),
+                    library_id = getOption("rbbt.default.library_id", 1),
                     .action = bbt_print) {
   if (length(keys) == 0)  {
     return(.action(""))
@@ -79,7 +84,12 @@ bbt_bib <- function(keys, translator = getOption("rbbt.default.translator", "bib
 
   assert_bbt()
   translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
-  result <- bbt_call_json_rpc("item.export", as.list(unique(as.character(keys))), translator)
+  result <- bbt_call_json_rpc(
+    "item.export",
+    as.list(unique(as.character(keys))),
+    translator,
+    library_id
+  )
 
   if (!is.null(result$error)) {
     stop(result$error$message, call. = FALSE)

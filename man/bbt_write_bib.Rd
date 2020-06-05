@@ -9,6 +9,7 @@ bbt_write_bib(
   keys = bbt_detect_citations(),
   ignore = character(),
   translator = bbt_guess_translator(path),
+  library_id = getOption("rbbt.default.library_id", 1),
   overwrite = FALSE
 )
 }
@@ -24,6 +25,11 @@ bbt_write_bib(
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
 (CSL YAML). CSL-JSON is recommended if users are not specifically using
 a LaTeX citation processor.}
+
+\item{library_id}{You may have to pass a specific library ID
+if your options are not set to use globally unique keys.
+Set the rbbt.default.library_id to ensure this value is
+used by the addin.}
 
 \item{overwrite}{Use \code{TRUE} to overwrite an existing file at \code{path}}
 }

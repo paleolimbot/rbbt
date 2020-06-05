@@ -31,6 +31,7 @@ bbt_write_bib <- function(path,
                           keys = bbt_detect_citations(),
                           ignore = character(),
                           translator = bbt_guess_translator(path),
+                          library_id = getOption("rbbt.default.library_id", 1),
                           overwrite = FALSE) {
   if (file.exists(path) && !overwrite) {
     stop("Use `overwrite = TRUE` to overwrite file at '", path, "'", call. = FALSE)

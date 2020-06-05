@@ -13,6 +13,7 @@ bbt_bib_selected(
 bbt_bib(
   keys,
   translator = getOption("rbbt.default.translator", "biblatex"),
+  library_id = getOption("rbbt.default.library_id", 1),
   .action = bbt_print
 )
 }
@@ -25,6 +26,11 @@ a LaTeX citation processor.}
 \item{.action}{Use \code{\link[=bbt_return]{bbt_return()}} to return the value without printing.}
 
 \item{keys}{A character vector of citation keys.}
+
+\item{library_id}{You may have to pass a specific library ID
+if your options are not set to use globally unique keys.
+Set the rbbt.default.library_id to ensure this value is
+used by the addin.}
 }
 \value{
 The result of \code{.action}.
