@@ -15,7 +15,7 @@ bbt_guess_citation_context()
 \arguments{
 \item{path}{A character vector, file or URL whose contents may contain citation keys.}
 
-\item{locale}{See \code{\link[readr:default_locale]{readr::default_locale()}}. Use if encoding might
+\item{locale}{See \code{\link[readr:locale]{readr::default_locale()}}. Use if encoding might
 be a problem.}
 }
 \value{

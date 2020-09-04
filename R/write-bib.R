@@ -7,7 +7,7 @@
 #' generate a bibliography file from the items cited in your document when you
 #' Knit, place a line like this one in your RMarkdown YAML header:
 #'
-#' ``bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"``
+#' ``bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"``
 #'
 #' @inheritParams bbt_bib_selected
 #' @inheritParams bbt_guess_translator

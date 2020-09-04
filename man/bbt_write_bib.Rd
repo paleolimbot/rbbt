@@ -43,7 +43,7 @@ To automatically
 generate a bibliography file from the items cited in your document when you
 Knit, place a line like this one in your RMarkdown YAML header:
 
-\verb{bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"}
+\code{bibliography: "`r rbbt::bbt_write_bib('bibliography.json', overwrite = TRUE)`"}
 }
 \section{Note}{
  Most users should use CSL-JSON format (\code{.json}) for their bibliographies.
