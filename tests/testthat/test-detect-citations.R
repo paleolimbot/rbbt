@@ -1,7 +1,7 @@
 
 test_that("regex for citations works", {
   expect_identical(
-    bbt_detect_citations_chr("\n@citation1 \n@citation1991AlphaBetaGamma [@citation2] [@citation2020author] but not \\@citation3 and not not \\@citation2019NotValid"),
+    bbt_detect_citations_chr("\n@citation1. \n@citation1991AlphaBetaGamma [@citation2] [@citation2020author]. but not \\@citation3 and not not \\@citation2019NotValid"),
     c("citation1","citation1991AlphaBetaGamma", "citation2", "citation2020author")
   )
 })
