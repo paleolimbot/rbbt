@@ -21,11 +21,8 @@ bbt_guess_citation_context <- function() {
   knitr_doc <- knitr::current_input()
   if (!is.null(knitr_doc)) {
     knitr_doc
-  } else if (clipr::clipr_available()) {
-    message("Detecting citations in clipboard contents...")
-    readr::clipboard()
   } else {
-    stop("Can't detect context (tried current knitr doc and clipboard)", call. = FALSE)
+    stop("Can't detect context (tried current knitr doc)", call. = FALSE)
   }
 }
 
