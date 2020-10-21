@@ -78,13 +78,29 @@ jobs:
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: |
-          download.file("https://github.com/paleolimbot/rbbt-test-zotero/releases/download/v1/win.zip", "win.zip")
-          unzip("win.zip", exdir = path.expand("~"))
+          tmp_zip <- tempfile(fileext = ".zip")
+          download.file(
+            "https://github.com/paleolimbot/rbbt-test-zotero/releases/download/v1/win.zip",
+            tmp_zip
+          )
+          unzip(tmp_zip, exdir = path.expand("~"))
+          unlink(tmp_zip)
+
           system(path.expand("~/AppData/Local/Zotero/zotero.exe"), wait = FALSE)
-          message("Waiting for Zotero...")
-          Sys.sleep(30)
+          message("Waiting 20s for Zotero to start...")
+          Sys.sleep(20)
+
+          message("Testing BetterBibTex endpoint...")
+          download.file("http://127.0.0.1:23119/better-bibtex/cayw?probe=TRUE", tempfile())
+
+
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
 
       - name: Upload check results
         if: failure()
