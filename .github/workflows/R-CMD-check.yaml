@@ -79,7 +79,7 @@ jobs:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: |
           download.file("https://github.com/paleolimbot/rbbt-test-zotero/releases/download/v1/win.zip", "win.zip")
-          unzip("win.zip", exdir = expand.path("~"))
+          unzip("win.zip", exdir = path.expand("~"))
           system(path.expand("~/AppData/Local/Zotero/zotero.exe"), wait = FALSE)
           message("Waiting for Zotero...")
           Sys.sleep(30)
