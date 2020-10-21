@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
 
 # rbbt
 
+<!-- badges: start -->
+[![R build status](https://github.com/paleolimbot/rbbt/workflows/R-CMD-check/badge.svg)](https://github.com/paleolimbot/rbbt/actions)
+<!-- badges: end -->
+
 The goal of rbbt is to connect R to the [Better Bibtex for Zotero connector](https://retorque.re/zotero-better-bibtex/). This allows the insertion of in-text citations (pandoc or LaTex style) and BibLaTex bibliography items directly into the RStudio editor using the RStudio addin, or to the console otherwise.
 
 ## Installation
