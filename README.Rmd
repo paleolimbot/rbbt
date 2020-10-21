@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # rbbt
 
-The goal of **rbbt** is to connect R to the [Better Bibtex for Zotero connector](https://retorque.re/zotero-better-bibtex/). This allows the insertion of in-text citations (pandoc or LaTex style) and BibLaTex bibliography items directly into the RStudio editor using the RStudio addin, or to the console otherwise.
+The goal of rbbt is to connect R to the [Better Bibtex for Zotero connector](https://retorque.re/zotero-better-bibtex/). This allows the insertion of in-text citations (pandoc or LaTex style) and BibLaTex bibliography items directly into the RStudio editor using the RStudio addin, or to the console otherwise.
 
 ## Installation
 
@@ -35,7 +35,7 @@ You will also need [Zotero](https://www.zotero.org/) installed and running, and 
 
 ## RStudio Addin
 
-This package is most useful for the RStudio addins that insert citations and references into the editor. The "Insert Zotero Citation" will pop up a zotero search where you can search for a reference to add to your writing (Markdown, RMarkdown, or LaTeX). The "Insert Zotero Bibliography" addin inserts the bibliographical information corresponding to the selected item in the Zotero window. You can bind either of these to keyboard shortcuts in RStudio.
+This package is most useful for the RStudio addins that insert citations and references into the editor. The "Insert Zotero Citation" will pop up a zotero search where you can search for a reference to add to your writing (Markdown, RMarkdown, or LaTeX). The "Insert Zotero Bibliography" addin inserts the bibliographical information corresponding to the selected item in the Zotero window. You can bind either of these to keyboard shortcuts in RStudio. The addin behaves differently depending on which file you have open (e.g., if you have a .bib file open, it will use the biblatex translator)...if you need more fine-grained control, try one of the console functions (like `bbt_bib()`!).
 
 ## knitr + rmarkdown integration
 

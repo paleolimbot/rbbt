@@ -30,7 +30,8 @@ a LaTeX citation processor.}
 \item{library_id}{You may have to pass a specific library ID
 if your options are not set to use globally unique keys.
 Set the rbbt.default.library_id to ensure this value is
-used by the addin.}
+used by the addin. You can use \code{\link[=bbt_library_id]{bbt_library_id()}} to look
+up this value by name.}
 
 \item{overwrite}{Use \code{TRUE} to overwrite an existing file at \code{path}}
 

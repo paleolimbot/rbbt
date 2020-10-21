@@ -2,9 +2,15 @@
 % Please edit documentation in R/bbt-libraries.R
 \name{bbt_libraries}
 \alias{bbt_libraries}
+\alias{bbt_library_id}
 \title{Query Zotero Libraries}
 \usage{
 bbt_libraries()
+
+bbt_library_id(x)
+}
+\arguments{
+\item{x}{A name of a Zotero library (e.g., "My Library")}
 }
 \value{
 A data.frame with columns \code{id} and \code{name}.
@@ -12,6 +18,7 @@ A data.frame with columns \code{id} and \code{name}.
 \description{
 Useful for specifying the \code{library_id} in \code{\link[=bbt_bib]{bbt_bib()}} or \code{\link[=bbt_write_bib]{bbt_write_bib()}}
 when using a group library whose \code{id} may be different between users.
+Use \code{\link[=bbt_library_id]{bbt_library_id()}} to look up this ID by name.
 }
 \examples{
 if (has_bbt()) bbt_libraries()

@@ -59,7 +59,8 @@ bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "bibl
 #' @param library_id You may have to pass a specific library ID
 #'   if your options are not set to use globally unique keys.
 #'   Set the rbbt.default.library_id to ensure this value is
-#'   used by the addin.
+#'   used by the addin. You can use [bbt_library_id()] to look
+#'   up this value by name.
 #'
 #' @inheritSection bbt_cite_cayw Note
 #'
