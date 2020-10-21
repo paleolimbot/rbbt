@@ -10,7 +10,8 @@ bbt_write_bib(
   ignore = character(),
   translator = bbt_guess_translator(path),
   library_id = getOption("rbbt.default.library_id", 1),
-  overwrite = FALSE
+  overwrite = FALSE,
+  filter = identity
 )
 }
 \arguments{
@@ -32,6 +33,9 @@ Set the rbbt.default.library_id to ensure this value is
 used by the addin.}
 
 \item{overwrite}{Use \code{TRUE} to overwrite an existing file at \code{path}}
+
+\item{filter}{Pass a function that can be used to modify the output
+of \code{\link[=bbt_bib]{bbt_bib()}} before it is written to \code{path}.}
 }
 \value{
 The value of \code{path} (so that this function

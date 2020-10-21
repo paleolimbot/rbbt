@@ -14,6 +14,8 @@
 #' @param ignore A character vector of keys to disregard (useful if
 #'   [bbt_detect_citations()] gives spurious output).
 #' @param overwrite Use `TRUE` to overwrite an existing file at `path`
+#' @param filter Pass a function that can be used to modify the output
+#'   of [bbt_bib()] before it is written to `path`.
 #'
 #' @inheritSection bbt_cite_cayw Note
 #'
@@ -32,7 +34,7 @@ bbt_write_bib <- function(path,
                           ignore = character(),
                           translator = bbt_guess_translator(path),
                           library_id = getOption("rbbt.default.library_id", 1),
-                          overwrite = FALSE) {
+                          overwrite = FALSE, filter = identity) {
   if (file.exists(path) && !overwrite) {
     stop("Use `overwrite = TRUE` to overwrite file at '", path, "'", call. = FALSE)
   }
@@ -40,7 +42,12 @@ bbt_write_bib <- function(path,
 
   assert_bbt()
   readr::write_file(
-    bbt_bib(setdiff(keys, ignore), translator, library_id = library_id, .action = bbt_return),
+    bbt_bib(
+      setdiff(keys, ignore),
+      translator,
+      library_id = library_id,
+      .action = filter
+    ),
     path
   )
 

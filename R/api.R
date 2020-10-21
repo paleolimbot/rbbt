@@ -8,7 +8,7 @@
 #' has_bbt()
 #'
 has_bbt <- function() {
-  ping <- bbt_call(.endpoint = "cayw", probe = TRUE)
+  ping <- try(bbt_call(.endpoint = "cayw", probe = TRUE), silent = TRUE)
   identical(ping, "ready")
 }
 
