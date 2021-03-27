@@ -55,7 +55,7 @@ bibliography: \"`r rbbt::bbt_write_bib('biblio.json', overwrite = TRUE)`\"
 ")
 ```
 
-This is still experimental, so file an issue if it fails! You can use `bbt_write_bib("biblio.json", bbt_detect_citation("file.Rmd"))` to do this manually.
+This is still experimental, so file an issue if it fails! You can use `bbt_write_bib("biblio.json", bbt_detect_citations("file.Rmd"))` to do this manually.
 
 ## Programmatically fetch bibliography info
 
