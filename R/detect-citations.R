@@ -12,7 +12,12 @@
 #' bbt_detect_citations("\n@citation1 and [@citation2] but not \\@citation3")
 #'
 bbt_detect_citations <- function(path = bbt_guess_citation_context(), locale = readr::default_locale()) {
-  bbt_detect_citations_chr(readr::read_file(path, locale = locale))
+  content <- stringr::str_replace_all(
+    readr::read_file(path, locale = locale),
+    stringr::regex('```([^`]*)```', multiline = TRUE, dotall = TRUE),
+    ''
+  )
+  bbt_detect_citations_chr(content)
 }
 
 #' @rdname bbt_detect_citations
