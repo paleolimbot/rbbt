@@ -1,5 +1,6 @@
 
 test_that("bbt_update_bib function works", {
+  skip_if_not(has_bbt())
   bib_file <- tempfile(fileext = ".bib")
   mock_content <- sprintf('
 
