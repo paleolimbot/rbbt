@@ -8,7 +8,7 @@
 #'
 #' @param path_rmd The path to the RMarkdown file.
 #' @param path_bib The path to the bibliography file.
-#' @inheritParams bbt_write_bib
+#' @param ... Arguments passed to `bbt_write_bib`
 #'
 #' @return The location of the bibliography file that has been updated
 #' @export

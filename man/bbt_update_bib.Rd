@@ -10,6 +10,8 @@ bbt_update_bib(path_rmd, path_bib, ...)
 \item{path_rmd}{The path to the RMarkdown file.}
 
 \item{path_bib}{The path to the bibliography file.}
+
+\item{...}{Arguments passed to \code{bbt_write_bib}}
 }
 \value{
 The location of the bibliography file that has been updated
