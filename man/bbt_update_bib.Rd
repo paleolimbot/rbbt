@@ -4,7 +4,7 @@
 \alias{bbt_update_bib}
 \title{Update bibliography file}
 \usage{
-bbt_update_bib(path_rmd, path_bib)
+bbt_update_bib(path_rmd, path_bib, ...)
 }
 \arguments{
 \item{path_rmd}{The path to the RMarkdown file.}
@@ -17,4 +17,7 @@ The location of the bibliography file that has been updated
 \description{
 This function takes an RMarkdown file location and a bibliography file
 as inputs and updates the bibliography file.
+}
+\details{
+It also takes named arguments that can be passed to \code{\link[=bbt_write_bib]{bbt_write_bib()}}.
 }
