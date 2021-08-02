@@ -39,7 +39,7 @@ bbt_detect_citations_chr <- function(text) {
   # https://github.com/benmarwick/wordcountaddin/blob/master/R/hello.R#L163-L199
 
   # don't include text in code chunks
-  text <- gsub("\n```\\{.+?\\}.+?\n```", "", text)
+  text <- gsub("\n```\\{.+?\\}.+?\r?\n```", "", text)
 
   # don't include text in in-line R code
   text <- gsub("`r.+?`", "", text)
