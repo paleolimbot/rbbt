@@ -43,7 +43,7 @@ This package is most useful for the RStudio addins that insert citations and ref
 
 ## knitr + rmarkdown integration
 
-To make this work seamlessly with [knitr](https://yihui.org/knitr/) and [rmarkdown](https://rmarkdown.rstudio.com/), use the "Update bibliography for current document" addin to write your bibliography file based on the citations in the currently selected document. You can also use `bbt_update_bib("some_file.Rmd")` to detect citations write your bibliography file from the console.
+To make this work seamlessly with [knitr](https://yihui.org/knitr/) and [rmarkdown](https://rmarkdown.rstudio.com/), use the "Update bibliography for current document" addin to write your bibliography file based on the citations in the currently selected document. You can use `bbt_update_bib("some_file.Rmd")` to detect citations and write your bibliography file from the console.
 
 ## Programmatically fetch bibliography info
 
