@@ -10,3 +10,9 @@ Description: Inserts a CSL-JSON, CSL-YAML, BibLaTeX, or BibTeX
   bibliography text into the editor from the Better BibTex Zotero Connector
 Binding: bbt_bib_addin
 Interactive: false
+
+Name: Update bibliography for current document from Zotero
+Description: Updates the bibliography for the current document
+  from Zotero.
+Binding: bbt_update_bib_addin
+Interactive: false

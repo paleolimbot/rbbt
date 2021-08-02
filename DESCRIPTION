@@ -19,7 +19,9 @@ Imports:
     clipr,
     knitr,
     readr,
-    stringr
+    stringr,
+    rmarkdown,
+    fs
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/paleolimbot/rbbt
 BugReports: https://github.com/paleolimbot/rbbt/issues
