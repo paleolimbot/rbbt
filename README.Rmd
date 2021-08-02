@@ -39,23 +39,11 @@ You will also need [Zotero](https://www.zotero.org/) installed and running, and 
 
 ## RStudio Addin
 
-This package is most useful for the RStudio addins that insert citations and references into the editor. The "Insert Zotero Citation" will pop up a zotero search where you can search for a reference to add to your writing (Markdown, RMarkdown, or LaTeX). The "Insert Zotero Bibliography" addin inserts the bibliographical information corresponding to the selected item in the Zotero window. You can bind either of these to keyboard shortcuts in RStudio. The addin behaves differently depending on which file you have open (e.g., if you have a .bib file open, it will use the biblatex translator)...if you need more fine-grained control, try one of the console functions (like `bbt_bib()`!).
+This package is most useful for the RStudio addins that insert citations and references into the editor. The "Insert Zotero Citation" will pop up a zotero search where you can search for a reference to add to your writing (Markdown, RMarkdown, or LaTeX). The "Insert Zotero Bibliography" addin inserts the bibliographical information corresponding to the selected item in the Zotero window. Finally, "Update bibliography for current document" runs `bbt_update_bib()` to update the bibliography based on the .Rmd file currently in the editor window. You can bind either of these to keyboard shortcuts in RStudio. The addins may behave differently depending on which file you have open (e.g., if you have a .bib file open, it will use the biblatex translator)...if you need more fine-grained control, try one of the console functions (like `bbt_bib()`!).
 
 ## knitr + rmarkdown integration
 
-To make this work seamlessly with [knitr](https://yihui.org/knitr/) and [rmarkdown](https://rmarkdown.rstudio.com/), you can use `bbt_write_bib()` to detect citations in the current document and write your bibliography file, all in one go! One way to go about this is to use something like this in your YAML front matter:
-
-```{r, echo=FALSE, comment=""}
-cat("
----
-title: \"Zotero + Better BibTeX + RMarkdown using rbbt\"
-output: html_document
-bibliography: \"`r rbbt::bbt_write_bib('biblio.json', overwrite = TRUE)`\"
----
-")
-```
-
-This is still experimental, so file an issue if it fails! You can use `bbt_write_bib("biblio.json", bbt_detect_citations("file.Rmd"))` to do this manually.
+To make this work seamlessly with [knitr](https://yihui.org/knitr/) and [rmarkdown](https://rmarkdown.rstudio.com/), use the "Update bibliography for current document" addin to write your bibliography file based on the citations in the currently selected document. You can also use `bbt_update_bib("some_file.Rmd")` to detect citations write your bibliography file from the console.
 
 ## Programmatically fetch bibliography info
 
@@ -72,3 +60,5 @@ Fetch bibliography text from selected items in Zotero:
 # uses whatever is currently selected in the zotero window
 rbbt::bbt_bib_selected(translator = "biblatex", .action = bbt_print)
 ```
+
+<!-- lazy way to test the bbt_update_bib() addon: @dunnington_etal18 -->

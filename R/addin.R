@@ -15,6 +15,16 @@ bbt_bib_addin <- function() {
   )
 }
 
+bbt_update_bib_addin <- function() {
+  context <- bbt_rstudio_editor_filepath()
+  if (!(tools::file_ext(context) %in% c("rmd", "Rmd"))) {
+    stop("Currently selected editor is not a .rmd or .Rmd file", call. = FALSE)
+  }
+
+  message(sprintf('Running `bbt_update_bib("%s")`', context))
+  bbt_update_bib(context, quiet = FALSE)
+}
+
 bbt_rstudio_editor_filepath <- function() {
   context <- rstudioapi::getActiveDocumentContext()
   if (is.character(context$path)) {

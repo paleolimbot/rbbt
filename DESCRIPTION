@@ -20,7 +20,8 @@ Imports:
     knitr,
     readr,
     stringr,
-    rmarkdown
+    rmarkdown,
+    fs
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/paleolimbot/rbbt
 BugReports: https://github.com/paleolimbot/rbbt/issues

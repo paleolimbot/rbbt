@@ -11,7 +11,8 @@ bbt_update_bib(
   translator = bbt_guess_translator(path_bib),
   library_id = getOption("rbbt.default.library_id", 1),
   overwrite = TRUE,
-  filter = identity
+  filter = identity,
+  quiet = FALSE
 )
 
 bbt_guess_bib_file(path_rmd, encoding = "UTF-8")
@@ -37,10 +38,12 @@ up this value by name.}
 \item{filter}{Pass a function that can be used to modify the output
 of \code{\link[=bbt_bib]{bbt_bib()}} before it is written to \code{path}.}
 
+\item{quiet}{Use \code{TRUE} to suppress message on successful write.}
+
 \item{encoding}{Passed to \code{\link[rmarkdown:yaml_front_matter]{rmarkdown::yaml_front_matter()}}}
 }
 \value{
-\code{path_rmd}, invisibly
+\code{path_bib}, invisibly
 }
 \description{
 This function takes an RMarkdown file location and a bibliography file

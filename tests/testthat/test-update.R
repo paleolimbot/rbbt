@@ -16,7 +16,7 @@ This file contains a reference to @dunnington_etal18.
   rmd_file <- tempfile(fileext = ".Rmd")
   readr::write_file(mock_content, rmd_file)
 
-  bbt_update_bib(rmd_file)
+  expect_message(bbt_update_bib(rmd_file), "Wrote 1 reference")
 
   expect_match(readr::read_file(bib_file), "dunnington_etal18")
 
