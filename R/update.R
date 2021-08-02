@@ -4,19 +4,38 @@
 #' This function takes an RMarkdown file location and a bibliography file
 #' as inputs and updates the bibliography file.
 #'
-#' It also takes named arguments that can be passed to [bbt_write_bib()].
-#'
 #' @param path_rmd The path to the RMarkdown file.
 #' @param path_bib The path to the bibliography file.
-#' @param ... Arguments passed to `bbt_write_bib`
+#' @param encoding Passed to [rmarkdown::yaml_front_matter()]
+#' @inheritParams bbt_write_bib
 #'
-#' @return The location of the bibliography file that has been updated
+#' @return `path_rmd`, invisibly
 #' @export
-bbt_update_bib <- function(path_rmd, path_bib, ...) {
+bbt_update_bib <- function(path_rmd, path_bib = bbt_guess_bib_file(path_rmd),
+                           translator = bbt_guess_translator(path_bib),
+                           library_id = getOption("rbbt.default.library_id", 1),
+                           overwrite = TRUE, filter = identity) {
   bbt_write_bib(
     path = path_bib,
     keys = bbt_detect_citations(path_rmd),
-    overwrite = TRUE,
-    ...
+    translator = translator,
+    overwrite = overwrite,
+    filter = filter
+  )
+
+  invisible(path_rmd)
+}
+
+#' @rdname bbt_update_bib
+#' @export
+bbt_guess_bib_file <- function(path_rmd, encoding = "UTF-8") {
+  front_matter <- rmarkdown::yaml_front_matter(path_rmd, encoding = encoding)
+  if (length(front_matter$bibliography) != 1) {
+    stop(
+      sprintf("Can't guess bibliography file from '%s' front matter", path_rmd),
+      call. = FALSE
     )
+  }
+
+  front_matter$bibliography
 }
