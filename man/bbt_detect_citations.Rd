@@ -22,7 +22,10 @@ be a problem.}
 A character vector of unique citation keys.
 }
 \description{
-Detect pandoc-style citations
+By default, this omits any references within code chunks, inline R code,
+or URLs. To force the inclusion of a reference in the output, include it
+in an HTML comment or the
+\href{https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#Unused_References_(nocite)}{nocite front matter field}.
 }
 \examples{
 bbt_detect_citations("\n@citation1 and [@citation2] but not \\\\@citation3")

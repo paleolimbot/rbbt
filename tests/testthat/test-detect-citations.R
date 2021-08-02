@@ -20,3 +20,28 @@ test_that("detect_citations can operate on a character vector or file", {
   )
   unlink(file)
 })
+
+test_that("detect_citations ignores code chunks", {
+  mock_content <- '
+
+
+```{r}
+@not_a_citation
+```
+
+`r @also_not_a_citation`
+
+
+[Some link](https://something.com/@not_a_citation_too)
+
+<https://something.com/@not_a_citation_too>
+
+
+@actual_citation
+
+'
+
+  expect_identical(bbt_detect_citations_chr(mock_content), "actual_citation")
+
+
+})
