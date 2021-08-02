@@ -7,6 +7,7 @@
 #' [nocite front matter field](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html#Unused_References_(nocite)).
 #'
 #' @param path A character vector, file or URL whose contents may contain citation keys.
+#'   Multiple files can be passed in as a vector (e.g., from [list.files()]).
 #' @param locale See [readr::default_locale()]. Use if encoding might
 #'   be a problem.
 #'
@@ -17,7 +18,7 @@
 #' bbt_detect_citations("\n@citation1 and [@citation2] but not \\@citation3")
 #'
 bbt_detect_citations <- function(path = bbt_guess_citation_context(), locale = readr::default_locale()) {
-  text <- readr::read_file(path, locale = locale)
+  text <- vapply(path, readr::read_file, locale = locale, FUN.VALUE = character(1))
   bbt_detect_citations_chr(text)
 }
 

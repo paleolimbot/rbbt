@@ -13,7 +13,8 @@ bbt_detect_citations(
 bbt_guess_citation_context()
 }
 \arguments{
-\item{path}{A character vector, file or URL whose contents may contain citation keys.}
+\item{path}{A character vector, file or URL whose contents may contain citation keys.
+Multiple files can be passed in as a vector (e.g., from \code{\link[=list.files]{list.files()}}).}
 
 \item{locale}{See \code{\link[readr:locale]{readr::default_locale()}}. Use if encoding might
 be a problem.}

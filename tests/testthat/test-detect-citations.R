@@ -21,6 +21,15 @@ test_that("detect_citations can operate on a character vector or file", {
   unlink(file)
 })
 
+test_that("detect_citations can handle a vector of files", {
+  f1 <- tempfile()
+  f2 <- tempfile()
+  write("\n@citation1\n", f1)
+  write("\n@citation2\n", f2)
+  expect_setequal(bbt_detect_citations(c(f1, f2)), c("citation1", "citation2"))
+  unlink(c(f1, f2))
+})
+
 test_that("detect_citations ignores code chunks", {
   mock_content <- '
 
