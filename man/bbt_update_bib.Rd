@@ -8,6 +8,7 @@
 bbt_update_bib(
   path_rmd,
   path_bib = bbt_guess_bib_file(path_rmd),
+  ignore = character(0),
   translator = bbt_guess_translator(path_bib),
   library_id = getOption("rbbt.default.library_id", 1),
   overwrite = TRUE,
@@ -21,6 +22,9 @@ bbt_guess_bib_file(path_rmd, encoding = "UTF-8")
 \item{path_rmd}{The path to the RMarkdown file.}
 
 \item{path_bib}{The path to the bibliography file.}
+
+\item{ignore}{A character vector of keys to disregard (useful if
+\code{\link[=bbt_detect_citations]{bbt_detect_citations()}} gives spurious output).}
 
 \item{translator}{Type of bibliography file to create. Options are \code{csljson}
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}

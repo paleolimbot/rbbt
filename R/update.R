@@ -14,6 +14,7 @@
 #' @export
 bbt_update_bib <- function(path_rmd,
                            path_bib = bbt_guess_bib_file(path_rmd),
+                           ignore = character(0),
                            translator = bbt_guess_translator(path_bib),
                            library_id = getOption("rbbt.default.library_id", 1),
                            overwrite = TRUE, filter = identity, quiet = FALSE) {
@@ -21,6 +22,7 @@ bbt_update_bib <- function(path_rmd,
   bbt_write_bib(
     path = path_bib,
     keys = keys,
+    ignore = ignore,
     translator = translator,
     overwrite = overwrite,
     filter = filter
