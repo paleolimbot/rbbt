@@ -51,7 +51,7 @@ bbt_detect_citations_chr <- function(text) {
 
   refs <- stringr::str_match_all(
     text,
-    stringr::regex("[^a-zA-Z0-9\\\\]@([a-zA-Z0-9_.-]+[a-zA-Z0-9])", multiline = TRUE, dotall = TRUE)
+    stringr::regex("[^a-zA-Z0-9\\\\]@([a-zA-Z0-9_\\.\\-:]+[a-zA-Z0-9])", multiline = TRUE, dotall = TRUE)
   )[[1]][, 2, drop = TRUE]
 
   unique(refs)
