@@ -71,7 +71,7 @@ bbt_write_bib <- function(path,
 #'
 bbt_guess_translator <- function(path, .bib = getOption("rbbt.default.bib", "biblatex")) {
   if (grepl("\\.json$", path, ignore.case = TRUE)) {
-    "csljson"
+    "json"
   } else if (grepl("\\.bib$", path, ignore.case = TRUE)) {
     .bib <- match.arg(.bib, choices = c("biblatex", "bibtex"))
     .bib
