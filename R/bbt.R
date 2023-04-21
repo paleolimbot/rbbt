@@ -9,7 +9,7 @@
 #' into the editor!
 #'
 #' @param format The citation format to use for in-text citations.
-#' @param translator Type of bibliography file to create. Options are `csljson`
+#' @param translator Type of bibliography file to create. Options are `json`
 #'   (CSL-JSON), `biblatex` (BibLaTeX), `bibtex` (BibTeX), and `cslyaml`
 #'   (CSL YAML). CSL-JSON is recommended if users are not specifically using
 #'   a LaTeX citation processor.
@@ -28,7 +28,7 @@
 #' [pandoc arguments to specify an alternative citation engine for raw TeX output](https://pandoc.org/MANUAL.html#citation-rendering).
 #'
 #' The default translator can be changed. For example:
-#'   `options(rbbt.default.translator = "csljson")`
+#'   `options(rbbt.default.translator = "json")`
 #'
 #' @return A character vector of length 1, the result of `.action`.
 #' @export
@@ -44,7 +44,7 @@ bbt_cite_cayw <- function(format = c("pandoc", "latex", "cite"), .action = bbt_p
 bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                          .action = bbt_print) {
   assert_bbt()
-  translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
+  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "cslyaml"))
   bbt_cayw(format = "translate", translator = translator, .action = .action)
 }
 
@@ -70,7 +70,7 @@ bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "bibl
 bbt_bib_selected <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                              .action = bbt_print) {
   assert_bbt()
-  translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
+  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "cslyaml"))
   .action(bbt_call(.endpoint = "select", translator))
 }
 
@@ -84,7 +84,7 @@ bbt_bib <- function(keys, translator = getOption("rbbt.default.translator", "bib
   }
 
   assert_bbt()
-  translator <- match.arg(translator, choices = c("csljson", "biblatex", "bibtex", "cslyaml"))
+  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "cslyaml"))
   result <- bbt_call_json_rpc(
     "item.export",
     as.list(unique(as.character(keys))),
