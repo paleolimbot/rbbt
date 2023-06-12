@@ -17,9 +17,10 @@
 #' @examples
 #' bbt_detect_citations("\n@citation1 and [@citation2] but not \\@citation3")
 #'
-bbt_detect_citations <- function(path = bbt_guess_citation_context(), locale = readr::default_locale()) {
+bbt_detect_citations <- function(path = bbt_guess_citation_context(), locale = readr::default_locale(),
+                                 include.chunks = TRUE) {
   text <- vapply(path, readr::read_file, locale = locale, FUN.VALUE = character(1))
-  bbt_detect_citations_chr(text)
+  bbt_detect_citations_chr(text, include.chunks = include.chunks)
 }
 
 #' @rdname bbt_detect_citations
@@ -33,14 +34,16 @@ bbt_guess_citation_context <- function() {
   }
 }
 
-bbt_detect_citations_chr <- function(text) {
+bbt_detect_citations_chr <- function(text, include.chunks = TRUE) {
   text <- paste0(text, collapse = "\n")
 
   # regexes inspired from here:
   # https://github.com/benmarwick/wordcountaddin/blob/master/R/hello.R#L163-L199
 
-  # don't include text in code chunks
-  text <- gsub("\n```\\{.+?\\}.+?\r?\n```", "", text)
+  if(!isTRUE(include.chunks)){
+    # don't include text in code chunks
+    text <- gsub("\n```\\{.+?\\}.+?\r?\n```", "", text)
+  }
 
   # don't include text in in-line R code
   text <- gsub("`r.+?`", "", text)
