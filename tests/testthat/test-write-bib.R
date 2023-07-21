@@ -4,7 +4,7 @@ test_that("bib writer works", {
 
   file <- tempfile(fileext = ".bib")
   expect_identical(
-    bbt_write_bib(file, "dunnington_etal18"),
+    bbt_write_bib(path = file, keys = "dunnington_etal18"),
     file
   )
   expect_error(

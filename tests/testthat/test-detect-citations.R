@@ -30,12 +30,21 @@ test_that("detect_citations can handle a vector of files", {
   unlink(c(f1, f2))
 })
 
-test_that("detect_citations ignores code chunks", {
-  mock_content <- '
+test_that("detect_citations even insidequartocitation code chunks", {
+  mock_content <- "
 
 
 ```{r}
-@not_a_citation
+@not_a_citation1
+```
+
+```{r, fig.cap = 'This an example of a caption in R markdown with a @Rmcitation.'}
+@not_a_citation2
+```
+
+```{r}
+#| fig-cap: 'This an example of a caption in Quarto with a @quartocitation.'
+@not_a_citation3
 ```
 
 `r @also_not_a_citation`
@@ -48,9 +57,8 @@ test_that("detect_citations ignores code chunks", {
 
 @actual_citation
 
-'
+"
 
-  expect_identical(bbt_detect_citations_chr(mock_content), "actual_citation")
-
-
+  expect_identical(bbt_detect_citations_chr(mock_content),
+                   c("Rmcitation", "quartocitation", "actual_citation"))
 })

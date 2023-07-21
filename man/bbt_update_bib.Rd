@@ -26,7 +26,7 @@ bbt_guess_bib_file(path_rmd, encoding = "UTF-8")
 \item{ignore}{A character vector of keys to disregard (useful if
 \code{\link[=bbt_detect_citations]{bbt_detect_citations()}} gives spurious output).}
 
-\item{translator}{Type of bibliography file to create. Options are \code{csljson}
+\item{translator}{Type of bibliography file to create. Options are \code{json}
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
 (CSL YAML). CSL-JSON is recommended if users are not specifically using
 a LaTeX citation processor.}

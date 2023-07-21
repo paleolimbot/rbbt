@@ -18,7 +18,7 @@ bbt_bib(
 )
 }
 \arguments{
-\item{translator}{Type of bibliography file to create. Options are \code{csljson}
+\item{translator}{Type of bibliography file to create. Options are \code{json}
 (CSL-JSON), \code{biblatex} (BibLaTeX), \code{bibtex} (BibTeX), and \code{cslyaml}
 (CSL YAML). CSL-JSON is recommended if users are not specifically using
 a LaTeX citation processor.}
@@ -55,6 +55,6 @@ Only use BibLaTeX or BibTeX if you are using
 \href{https://pandoc.org/MANUAL.html#citation-rendering}{pandoc arguments to specify an alternative citation engine for raw TeX output}.
 
 The default translator can be changed. For example:
-\code{options(rbbt.default.translator = "csljson")}
+\code{options(rbbt.default.translator = "json")}
 }
 
