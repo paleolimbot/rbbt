@@ -99,6 +99,15 @@ bibliography file from the console.
 
 # Versions
 
+## 0.0.1
+
+- Add functionality for citing R packages. Now, if the user wants to
+  cite a R package, must indicate this with the syntax
+  `@rpkg_NameOfPackage` (e.g. `@rpkg_rbbt`).
+- R native pipe is used in some functions so now it is necessary to run
+  **rbbt** in **R \>= 4.1.0**.
+- Subtle corrections and improvements in code and documentation.
+
 ## 0.0.0.9002
 
 - Changes in `bbt_detect_citations` in order to avoid including
