@@ -104,7 +104,7 @@ bibliography file from the console.
 - Add functionality for citing R packages. Now, if the user wants to
   cite a R package, could indicate it in the Rmd/Qmd file with the
   syntax `@rpkg_NameOfPackage` (e.g. `@rpkg_rbbt`).
-  `bbt_detect_citations` and `bbt_update_bib` are nor prepared for
+  `bbt_detect_citations` and `bbt_update_bib` are now prepared for
   identify this syntax and adding to the bibliography using `citation`
   and `toBibtex` tools.
 - R native pipe is used in some functions so now it is necessary to run
