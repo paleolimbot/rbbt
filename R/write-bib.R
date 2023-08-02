@@ -41,7 +41,7 @@ bbt_write_bib <- function(path,
   force(keys)
 
   assert_bbt()
-  readr::write_file(
+  write_file(
     bbt_bib(
       setdiff(keys, ignore),
       translator,

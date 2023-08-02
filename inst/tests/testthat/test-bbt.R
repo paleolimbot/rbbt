@@ -29,7 +29,7 @@ test_that("actions work", {
   expect_identical(bbt_return("stuff"), "stuff")
   expect_output(bbt_print("stuff"), "stuff")
 
-  if (clipr::clipr_available()) {
+  if(clipr::clipr_available()) {
     prev_clip <- clipr::read_clip()
     expect_message(bbt_copy("stuff"), "copied")
     expect_identical(clipr::read_clip(), "stuff")

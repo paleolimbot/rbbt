@@ -38,7 +38,7 @@ assert_bbt <- function() {
 #'
 bbt_call <- function(.endpoint, ...) {
   url <- bbt_url(.endpoint = .endpoint, ...)
-  httr::content(httr::GET(url), as = "text", encoding = "UTF-8")
+  content(GET(url), as = "text", encoding = "UTF-8")
 }
 
 #' @rdname bbt_call
@@ -50,8 +50,8 @@ bbt_cayw <- function(..., .action = bbt_print) {
 #' @rdname bbt_call
 #' @export
 bbt_call_json_rpc <- function(.method, ...) {
-  httr::content(
-    httr::POST(
+  content(
+    POST(
       bbt_url("json-rpc"),
       body = list(
         jsonrpc = "2.0",
@@ -71,15 +71,15 @@ bbt_url <- function(.endpoint, ...) {
   if(is.null(names(args))) {
     url <- paste0(
       .endpoint, "?", paste0(
-        vapply(args, utils::URLencode, reserved=TRUE, FUN.VALUE = character(1)),
+        vapply(args, URLencode, reserved=TRUE, FUN.VALUE = character(1)),
         collapse = "&"
       )
     )
   } else {
     stopifnot(all(names(args) != ""))
-    url <- httr::parse_url(.endpoint)
+    url <- parse_url(.endpoint)
     url$query <- as.list(args)
-    url <- httr::build_url(url)
+    url <- build_url(url)
   }
 
   url

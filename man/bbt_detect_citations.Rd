@@ -7,16 +7,16 @@
 \usage{
 bbt_detect_citations(
   path = bbt_guess_citation_context(),
-  locale = readr::default_locale()
+  locale = default_locale()
 )
 
 bbt_guess_citation_context()
 }
 \arguments{
 \item{path}{A character vector, file or URL whose contents may contain citation keys.
-Multiple files can be passed in as a vector (e.g., from \code{\link[=list.files]{list.files()}}).}
+Multiple files can be passed in as a vector (e.g., from \link{list.files}).}
 
-\item{locale}{See \code{\link[readr:locale]{readr::default_locale()}}. Use if encoding might
+\item{locale}{See \link[readr]{default_locale}. Use if encoding might
 be a problem.}
 }
 \value{

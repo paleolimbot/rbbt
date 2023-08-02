@@ -6,7 +6,7 @@
 #'
 #' @param path_rmd The path to the RMarkdown file.
 #' @param path_bib The path to the bibliography file.
-#' @param encoding Passed to [rmarkdown::yaml_front_matter()]
+#' @param encoding Passed to \link[rmarkdown]{yaml_front_matter}
 #' @param quiet Use `TRUE` to suppress message on successful write.
 #' @inheritParams bbt_write_bib
 #'
@@ -39,7 +39,7 @@ bbt_update_bib <- function(path_rmd,
 #' @rdname bbt_update_bib
 #' @export
 bbt_guess_bib_file <- function(path_rmd, encoding = "UTF-8") {
-  front_matter <- rmarkdown::yaml_front_matter(path_rmd, encoding = encoding)
+  front_matter <- yaml_front_matter(path_rmd, encoding = encoding)
   if (length(front_matter$bibliography) != 1) {
     stop(
       sprintf("Can't guess bibliography file from '%s' front matter", path_rmd),
@@ -48,7 +48,7 @@ bbt_guess_bib_file <- function(path_rmd, encoding = "UTF-8") {
   }
 
   bib_file <- front_matter$bibliography
-  if (!fs::is_absolute_path(bib_file)) {
+  if (!is_absolute_path(bib_file)) {
     file.path(dirname(path_rmd), bib_file)
   } else {
     bib_file

@@ -44,7 +44,7 @@ of \code{\link[=bbt_bib]{bbt_bib()}} before it is written to \code{path}.}
 
 \item{quiet}{Use \code{TRUE} to suppress message on successful write.}
 
-\item{encoding}{Passed to \code{\link[rmarkdown:yaml_front_matter]{rmarkdown::yaml_front_matter()}}}
+\item{encoding}{Passed to \link[rmarkdown]{yaml_front_matter}}
 }
 \value{
 \code{path_bib}, invisibly

@@ -1,7 +1,7 @@
 
 bbt_cite_addin <- function() {
   # get the likely citation type from the current document context
-  context <- rstudioapi::getActiveDocumentContext()
+  context <- getActiveDocumentContext()
   bbt_cite_cayw(
     format = bbt_guess_format(bbt_rstudio_editor_filepath()),
     .action = bbt_insert
@@ -17,7 +17,7 @@ bbt_bib_addin <- function() {
 
 bbt_update_bib_addin <- function() {
   context <- bbt_rstudio_editor_filepath()
-  if (!(tools::file_ext(context) %in% c("qmd", "Qmd", "rmd", "Rmd"))) {
+  if (!(file_ext(context) %in% c("qmd", "Qmd", "rmd", "Rmd"))) {
     stop("Currently selected editor is not a .qmd, .rmd or .Rmd file", call. = FALSE)
   }
 
@@ -26,7 +26,7 @@ bbt_update_bib_addin <- function() {
 }
 
 bbt_rstudio_editor_filepath <- function() {
-  context <- rstudioapi::getActiveDocumentContext()
+  context <- getActiveDocumentContext()
   if (is.character(context$path)) {
     context$path
   } else {
