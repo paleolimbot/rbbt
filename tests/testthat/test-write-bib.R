@@ -22,7 +22,7 @@ test_that("bib writer works", {
 test_that("bib guessers work", {
   expect_identical(bbt_guess_translator("thing.bib"), "biblatex")
   expect_identical(bbt_guess_translator("thing.json"), "json")
-  expect_identical(bbt_guess_translator("thing.yaml"), "cslyaml")
+  expect_identical(bbt_guess_translator("thing.yaml"), "yaml")
 
   expect_identical(bbt_guess_format("thing.tex"), "cite")
   expect_identical(bbt_guess_format("thing.Rmd"), "pandoc")
