@@ -10,7 +10,7 @@
 #'
 #' @param format The citation format to use for in-text citations.
 #' @param translator Type of bibliography file to create. Options are `json`
-#'   (CSL-JSON), `biblatex` (BibLaTeX), `bibtex` (BibTeX), and `cslyaml`
+#'   (CSL-JSON), `biblatex` (BibLaTeX), `bibtex` (BibTeX), and `yaml`
 #'   (CSL YAML). CSL-JSON is recommended if users are not specifically using
 #'   a LaTeX citation processor.
 #' @param .action Use [bbt_return()] to return the value without printing.
@@ -44,7 +44,7 @@ bbt_cite_cayw <- function(format = c("pandoc", "latex", "cite"), .action = bbt_p
 bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                          .action = bbt_print) {
   assert_bbt()
-  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "cslyaml"))
+  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "yaml"))
   bbt_cayw(format = "translate", translator = translator, .action = .action)
 }
 
@@ -70,7 +70,7 @@ bbt_bib_cayw <- function(translator = getOption("rbbt.default.translator", "bibl
 bbt_bib_selected <- function(translator = getOption("rbbt.default.translator", "biblatex"),
                              .action = bbt_print) {
   assert_bbt()
-  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "cslyaml"))
+  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "yaml"))
   .action(bbt_call(.endpoint = "select", translator))
 }
 
@@ -84,7 +84,7 @@ bbt_bib <- function(keys, translator = getOption("rbbt.default.translator", "bib
   }
 
   assert_bbt()
-  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "cslyaml"))
+  translator <- match.arg(translator, choices = c("json", "biblatex", "bibtex", "yaml"))
   result <- bbt_call_json_rpc(
     "item.export",
     as.list(unique(as.character(keys))),
