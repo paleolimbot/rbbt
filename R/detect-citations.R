@@ -33,6 +33,17 @@ bbt_guess_citation_context <- function() {
   }
 }
 
+prepare_whitelists <- function(){
+  quarto_wl <- getOption("rbbt.whitelist.quarto")
+  user_wl <- getOption("rbbt.whitelist.user")
+  wl <- vector("character")
+  if(length(quarto_wl)>0)
+    wl <- c(wl, paste(paste0("(",quarto_wl, ")"), collapse="|"))
+  if(length(user_wl)>0)
+    wl <- c(wl, paste(paste0("(",user_wl, ")"), collapse="|"))
+  wl
+}
+
 bbt_detect_citations_chr <- function(text) {
   text <- paste0(text, collapse = "\n")
 
@@ -53,6 +64,8 @@ bbt_detect_citations_chr <- function(text) {
     text,
     stringr::regex("[^a-zA-Z0-9\\\\]@([a-zA-Z0-9_\\.\\-:]+[a-zA-Z0-9])", multiline = TRUE, dotall = TRUE)
   )[[1]][, 2, drop = TRUE]
+
+  refs <- stringr::str_subset(string = refs, pattern =prepare_whitelists(), negate = TRUE)
 
   unique(refs)
 }
