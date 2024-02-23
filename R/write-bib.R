@@ -71,12 +71,12 @@ bbt_write_bib <- function(path,
 #'
 bbt_guess_translator <- function(path, .bib = getOption("rbbt.default.bib", "biblatex")) {
   if (grepl("\\.json$", path, ignore.case = TRUE)) {
-    "csljson"
+    "json"
   } else if (grepl("\\.bib$", path, ignore.case = TRUE)) {
     .bib <- match.arg(.bib, choices = c("biblatex", "bibtex"))
     .bib
   } else if (grepl("\\.yaml$", path, ignore.case = TRUE)) {
-    "cslyaml"
+    "yaml"
   } else {
     warning(
       "Expected translator could not be determined. `path` must end in '.json', '.bib', or '.yaml'.",
