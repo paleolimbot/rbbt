@@ -31,7 +31,7 @@ bbt_library_id <- function(x) {
   }
 
   libs <- bbt_libraries()
-  result <- match(x, libs$name)
+  result <- libs$id[match(x, libs$name)]
 
   if (any(is.na(result) & !x_is_na)) {
     bad_x <- x[is.na(result) & !x_is_na]
